@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import UserCard from '../UserCard'
 
 const UserList: React.FC = () => {
+  const [usersData, setUsersData] = useState();
+
+  useEffect(() => {
+    axios.get('https://api.github.com/users')
+      .then((res) => setUsersData(res.data))
+  })
+
+  const renderUsers = () => {
+    return usersData.map(({login, avatar_url, html_url}) => <UserCard username={login} avatarURL={avatar_url} githubURL={html_url} />)
+  }
+
   return (
     <div className="UserList">
-      <UserCard avatarURL="https://avatars0.githubusercontent.com/u/1?v=4" username="hello" githubURL="asdasdasd" />
+      {usersData && renderUsers()}
     </div>
   );
 }

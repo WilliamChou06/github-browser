@@ -23,7 +23,7 @@ const UserCard = ({avatarURL, githubURL, username}: Props) => {
         src={avatarURL}
       />
     }
-    actions={[<a href={githubURL}><Icon type="github" /></a>, <Icon type="folder-open" />]}
+    actions={[<a href={githubURL} title="Github Profile" target="_blank" ><Icon type="github" /></a>, <Icon type="folder-open" />]}
   >
     <StyledUsernameTitle>{username}</StyledUsernameTitle>
   </Card>
