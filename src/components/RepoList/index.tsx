@@ -4,13 +4,18 @@ import RepoCard from '../RepoCard';
 import { RepoListContainer } from './style';
 import Spinner from '../Spinner';
 
+import Pagination from 'antd/lib/pagination';
+import 'antd/lib/pagination/style/css'
+
 
 const RepoList = (props) => {
   const [userRepos, setUserRepos] = useState();
 
   useEffect(() => {
-    axios.get(`https://api.github.com/users/${props.match.params.username}/repos?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`)
-      .then(res => setUserRepos(res.data))
+  axios.get(`https://api.github.com/users/${props.match.params.username}/repos?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}&page=1&per_page=8`)
+      .then(res => {
+        console.log(res)
+        return setUserRepos(res.data)})
       .catch(err => console.log(err.response))
   }, [])
 
@@ -21,7 +26,9 @@ const RepoList = (props) => {
     <>
       <RepoListContainer>
         {userRepos ? renderRepos() : <Spinner />}
+        <Pagination />
       </RepoListContainer>
+      
     </>
 
   );
