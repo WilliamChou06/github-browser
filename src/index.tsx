@@ -7,10 +7,12 @@ import Spinner from './components/Spinner';
 // Lazy Loading for route components
 const UserList = lazy(() => import('./components/UserList'));
 const RepoList = lazy(() => import('./components/RepoList'));
+const Header = lazy(() => import('./components/Header'));
 
 ReactDOM.render(
   <BrowserRouter>
     <Suspense fallback={<Spinner />}>
+      <Header />
       <Switch>
         <Route exact path="/" component={UserList} />
         <Route path="/user/:username/repositories" component={RepoList} />

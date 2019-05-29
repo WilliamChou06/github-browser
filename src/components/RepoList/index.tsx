@@ -1,7 +1,7 @@
 import React, { useState, useEffect, lazy } from 'react';
 import axios from 'axios';
 import RepoCard from '../RepoCard';
-import { RepoListContainer, RepoListTitle, RepoListReturn } from './style';
+import { RepoListContainer, RepoListReturn } from './style';
 import Spinner from '../Spinner';
 
 import Icon from 'antd/lib/icon';
@@ -21,7 +21,6 @@ const RepoList = (props) => {
   return (
     <>
       <RepoListReturn onClick={() => props.history.push('/')}><Icon type="left" /></RepoListReturn>
-      <RepoListTitle>Seeing {props.match.params.username}'s REPOS</RepoListTitle>
       <RepoListContainer>
         {userRepos ? renderRepos() : <Spinner />}
       </RepoListContainer>
