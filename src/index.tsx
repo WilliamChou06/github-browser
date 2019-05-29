@@ -12,7 +12,7 @@ ReactDOM.render(
     <Suspense fallback={<div>Loading...</div>} >
       <Switch>
         <Route exact path="/" component={UserList} />
-        <Route path="/user/:userId/repositories" component={RepoList} />
+        <Route path="/user/:username/repositories" component={RepoList} />
       </Switch>
     </Suspense>
   </BrowserRouter>

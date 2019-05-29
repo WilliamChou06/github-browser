@@ -10,10 +10,9 @@ interface Props {
   avatarURL: string,
   username: string,
   githubURL: string,
-  userID: number
 }
 
-const UserCard = ({avatarURL, githubURL, username, userID}: Props) => {
+const UserCard = ({avatarURL, githubURL, username}: Props) => {
   return (
     <StyledCard
     style={{ width: 300 }}
@@ -23,7 +22,7 @@ const UserCard = ({avatarURL, githubURL, username, userID}: Props) => {
         src={avatarURL}
       />
     }
-    actions={[<a href={githubURL} title="Github Profile" target="_blank" rel="noopener noreferrer" ><Icon type="github" /></a>, <Link to={`/user/${userID}/repositories`}><Icon type="folder-open" /></Link>]}
+    actions={[<a href={githubURL} title="Github Profile" target="_blank" rel="noopener noreferrer" ><Icon type="github" /></a>, <Link to={`/user/${username}/repositories`}><Icon type="folder-open" /></Link>]}
   >
     <UsernameTitle>Username: {username}</UsernameTitle>
   </StyledCard>

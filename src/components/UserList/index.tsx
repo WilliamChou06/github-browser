@@ -8,18 +8,16 @@ const UserList: React.FC = () => {
 
   useEffect(() => {
     axios.get(`https://api.github.com/users?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`)
-      .then((res) => setUsersData(res.data))
+      .then(res => setUsersData(res.data))
       .catch(err => console.log(err.response))
-  })
+  }, [])
 
-  const renderUsers = () => {
-    return usersData.map(({login, avatar_url, html_url, id}) => <UserCard username={login} avatarURL={avatar_url} githubURL={html_url} userID={id} />)
-  }
+  const renderUsers = () => usersData.map(({login, avatar_url, html_url}) => <UserCard username={login} avatarURL={avatar_url} githubURL={html_url} />);
+  
 
   return (
     <UserListContainer>
       {usersData && renderUsers()}
-      {console.log(usersData)}
     </UserListContainer>
   );
 }
