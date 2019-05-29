@@ -13,12 +13,13 @@ const UserList: React.FC = () => {
   })
 
   const renderUsers = () => {
-    return usersData.map(({login, avatar_url, html_url}) => <UserCard username={login} avatarURL={avatar_url} githubURL={html_url} />)
+    return usersData.map(({login, avatar_url, html_url, id}) => <UserCard username={login} avatarURL={avatar_url} githubURL={html_url} userID={id} />)
   }
 
   return (
     <UserListContainer>
       {usersData && renderUsers()}
+      {console.log(usersData)}
     </UserListContainer>
   );
 }
