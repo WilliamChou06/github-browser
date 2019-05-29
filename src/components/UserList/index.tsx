@@ -20,7 +20,7 @@ const UserList: React.FC = () => {
 
   const decreaseApiIndex = () => apiIndex >= 9 && setApiIndex(apiIndex - 9)
 
-  const renderUsers = () => usersData.map(({ login, avatar_url, html_url }) => <UserCard username={login} avatarURL={avatar_url} githubURL={html_url} />);
+  const renderUsers = () => usersData.map(({ login, avatar_url, html_url, id }) => <UserCard key={id} username={login} avatarURL={avatar_url} githubURL={html_url} />);
 
 
   return (

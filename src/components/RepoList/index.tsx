@@ -19,7 +19,7 @@ const RepoList = (props) => {
       .catch(err => console.log(err.response))
   }, [])
 
-  const renderRepos = () => userRepos.map(({ html_url, forks, name, open_issues, description }) => <RepoCard repoName={name} repoDescription={description} openIssues={open_issues} forks={forks} repoURL={html_url} />);
+  const renderRepos = () => userRepos.map(({ html_url, forks, name, open_issues, description, id }) => <RepoCard key={id} repoName={name} repoDescription={description} openIssues={open_issues} forks={forks} repoURL={html_url} />);
 
 
   return (
