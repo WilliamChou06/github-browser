@@ -8,3 +8,11 @@ export const StyledHeader = styled.div`
   justify-content: center;
   padding: 24px;
 `;
+
+export const HeaderReturn = styled.a`
+  position: absolute;
+  color: #fff;
+  font-size: 24px;
+  top: 10px;
+  left: 10px;
+`

@@ -8,10 +8,3 @@ export const RepoListContainer = styled.div`
   padding: 24px;
 `;
 
-export const RepoListReturn = styled.a`
-  position: absolute;
-  color: #fff;
-  font-size: 24px;
-  top: 10px;
-  left: 10px;
-`

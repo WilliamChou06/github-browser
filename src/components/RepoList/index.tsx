@@ -1,10 +1,9 @@
 import React, { useState, useEffect, lazy } from 'react';
 import axios from 'axios';
 import RepoCard from '../RepoCard';
-import { RepoListContainer, RepoListReturn } from './style';
+import { RepoListContainer } from './style';
 import Spinner from '../Spinner';
 
-import Icon from 'antd/lib/icon';
 
 const RepoList = (props) => {
   const [userRepos, setUserRepos] = useState();
@@ -20,7 +19,6 @@ const RepoList = (props) => {
 
   return (
     <>
-      <RepoListReturn onClick={() => props.history.push('/')}><Icon type="left" /></RepoListReturn>
       <RepoListContainer>
         {userRepos ? renderRepos() : <Spinner />}
       </RepoListContainer>

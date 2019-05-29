@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter, matchPath } from 'react-router-dom';
-import { StyledHeader } from './style';
+import Icon from 'antd/lib/icon';
+import { StyledHeader, HeaderReturn, } from './style';
 
 const Header = ({location: {pathname}, match, history}) => {
   const renderHeaderText = () => {
@@ -16,6 +17,8 @@ const Header = ({location: {pathname}, match, history}) => {
 
   return (
     <StyledHeader>
+      {pathname.endsWith('repositories') &&       <HeaderReturn onClick={() => history.push('/')}><Icon type="left" /></HeaderReturn>
+}
       {renderHeaderText()}
     </StyledHeader>
   );
