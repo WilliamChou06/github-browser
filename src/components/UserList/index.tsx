@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import axios from 'axios';
-import UserCard from '../UserCard';
+// import UserCard from '../UserCard';
 import { UserListContainer, NextButton, PreviousButton } from './style';
 import Spinner from '../Spinner';
 import Icon from 'antd/lib/icon'
 
+const UserCard = lazy(() => import ('../UserCard'));
 
 const UserList: React.FC = () => {
   const [usersData, setUsersData] = useState();
@@ -20,7 +21,7 @@ const UserList: React.FC = () => {
 
   const decreaseApiIndex = () => apiIndex >= 9 && setApiIndex(apiIndex - 9)
 
-  const renderUsers = () => usersData.map(({ login, avatar_url, html_url, id }) => <UserCard key={id} username={login} avatarURL={avatar_url} githubURL={html_url} />);
+  const renderUsers = () => usersData.map(({ login, avatar_url, html_url, id }) => <Suspense fallback={<div>Loading...</div>}><UserCard key={id} username={login} avatarURL={avatar_url} githubURL={html_url} /></Suspense>);
 
 
   return (

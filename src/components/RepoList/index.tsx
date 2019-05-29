@@ -1,11 +1,11 @@
-import React, { useState, useEffect, lazy } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import axios from 'axios';
-import RepoCard from '../RepoCard';
-import { RepoListContainer } from './style';
+// import RepoCard from '../RepoCard';
+import { RepoListContainer, StyledPagination } from './style';
 import Spinner from '../Spinner';
 
-import Pagination from 'antd/lib/pagination';
-import 'antd/lib/pagination/style/css'
+
+const RepoCard = lazy(() => import('../RepoCard'));
 
 
 const RepoList = (props) => {
@@ -19,16 +19,15 @@ const RepoList = (props) => {
       .catch(err => console.log(err.response))
   }, [])
 
-  const renderRepos = () => userRepos.map(({ html_url, forks, name, open_issues, description, id }) => <RepoCard key={id} repoName={name} repoDescription={description} openIssues={open_issues} forks={forks} repoURL={html_url} />);
+  const renderRepos = () => userRepos.map(({ html_url, forks, name, open_issues, description, id }) => <Suspense fallback={<div>Loading...</div>}><RepoCard key={id} repoName={name} repoDescription={description} openIssues={open_issues} forks={forks} repoURL={html_url} /></Suspense>);
 
 
   return (
     <>
       <RepoListContainer>
         {userRepos ? renderRepos() : <Spinner />}
-        <Pagination />
+        <StyledPagination/>
       </RepoListContainer>
-      
     </>
 
   );
