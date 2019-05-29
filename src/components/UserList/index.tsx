@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import UserCard from '../UserCard'
+import UserCard from '../UserCard';
+import { UserListContainer } from './style';
 
 const UserList: React.FC = () => {
   const [usersData, setUsersData] = useState();
 
   useEffect(() => {
-    axios.get('https://api.github.com/users')
+    axios.get(`https://api.github.com/users?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}`)
       .then((res) => setUsersData(res.data))
+      .catch(err => console.log(err.response))
   })
 
   const renderUsers = () => {
@@ -15,9 +17,9 @@ const UserList: React.FC = () => {
   }
 
   return (
-    <div className="UserList">
+    <UserListContainer>
       {usersData && renderUsers()}
-    </div>
+    </UserListContainer>
   );
 }
 

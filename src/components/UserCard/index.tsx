@@ -1,9 +1,7 @@
 import React from 'react';
-import { StyledUsernameTitle } from './style';
+import { UsernameTitle, StyledCard } from './style';
 
 // antd imports
-import Card from 'antd/lib/card';
-import 'antd/lib/card/style/css';
 import Icon from 'antd/lib/icon';
 import 'antd/lib/icon/style/css';
 
@@ -15,7 +13,7 @@ interface Props {
 
 const UserCard = ({avatarURL, githubURL, username}: Props) => {
   return (
-    <Card
+    <StyledCard
     style={{ width: 300 }}
     cover={
       <img
@@ -23,10 +21,10 @@ const UserCard = ({avatarURL, githubURL, username}: Props) => {
         src={avatarURL}
       />
     }
-    actions={[<a href={githubURL} title="Github Profile" target="_blank" ><Icon type="github" /></a>, <Icon type="folder-open" />]}
+    actions={[<a href={githubURL} title="Github Profile" target="_blank" rel="noopener noreferrer" ><Icon type="github" /></a>, <Icon type="folder-open" />]}
   >
-    <StyledUsernameTitle>{username}</StyledUsernameTitle>
-  </Card>
+    <UsernameTitle>{username}</UsernameTitle>
+  </StyledCard>
   );
 };
 
