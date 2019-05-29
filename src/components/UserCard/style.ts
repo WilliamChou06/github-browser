@@ -9,5 +9,5 @@ export const UsernameTitle = styled.h4`
 
 export const StyledCard = styled(Card)`
   width: 300px;
-  padding-bottom: 30px;
+  margin-bottom: 30px;
 `;
