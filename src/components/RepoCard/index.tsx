@@ -2,7 +2,6 @@ import React from 'react';
 
 // antd imports
 import Icon from 'antd/lib/icon';
-import 'antd/lib/icon/style/css';
 
 import { StyledCard, RepoIcons } from './style';
 

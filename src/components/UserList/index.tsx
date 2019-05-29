@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import UserCard from '../UserCard';
 import { UserListContainer } from './style';
+import Spinner from '../Spinner';
 
 const UserList: React.FC = () => {
   const [usersData, setUsersData] = useState();
@@ -12,12 +13,12 @@ const UserList: React.FC = () => {
       .catch(err => console.log(err.response))
   }, [])
 
-  const renderUsers = () => usersData.map(({login, avatar_url, html_url}) => <UserCard username={login} avatarURL={avatar_url} githubURL={html_url} />);
-  
+  const renderUsers = () => usersData.map(({ login, avatar_url, html_url }) => <UserCard username={login} avatarURL={avatar_url} githubURL={html_url} />);
+
 
   return (
     <UserListContainer>
-      {usersData && renderUsers()}
+      {usersData ? renderUsers() : <Spinner />}
     </UserListContainer>
   );
 }

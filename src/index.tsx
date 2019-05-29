@@ -2,6 +2,7 @@ import React, {lazy, Suspense} from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
+import Spinner from './components/Spinner';
 
 // Lazy Loading for route components
 const UserList = lazy(() => import('./components/UserList'));
@@ -9,7 +10,7 @@ const RepoList = lazy(() => import('./components/RepoList'));
 
 ReactDOM.render(
   <BrowserRouter>
-    <Suspense fallback={<div>Loading...</div>} >
+    <Suspense fallback={<Spinner />}>
       <Switch>
         <Route exact path="/" component={UserList} />
         <Route path="/user/:username/repositories" component={RepoList} />

@@ -8,6 +8,6 @@ export const UsernameTitle = styled.h4`
 `;
 
 export const StyledCard = styled(Card)`
-  width: 300px;
-  margin-bottom: 30px;
+  width: 300px !important;
+  margin-bottom: 30px !important;
 `;

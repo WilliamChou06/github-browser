@@ -4,7 +4,6 @@ import { UsernameTitle, StyledCard } from './style';
 
 // antd imports
 import Icon from 'antd/lib/icon';
-import 'antd/lib/icon/style/css';
 
 interface Props {
   avatarURL: string,
@@ -15,7 +14,6 @@ interface Props {
 const UserCard = ({avatarURL, githubURL, username}: Props) => {
   return (
     <StyledCard
-    style={{ width: 300 }}
     cover={
       <img
         alt="github-avatar"
