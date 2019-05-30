@@ -10,6 +10,7 @@
 ## Issues
 
 - Pagination active state not working properly when accessing repo page URL. E.g. ```/user/williamchou06/repositories/5```
+- UserList navigation gets "stuck" when clicking them too fast. This has to do with two concurrent useState calls overlapping.
 
 ## Notes
 
