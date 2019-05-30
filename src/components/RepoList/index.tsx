@@ -8,8 +8,11 @@ import Spinner from '../Spinner';
 // Lazy loading
 const RepoCard = lazy(() => import('../RepoCard'));
 
+interface Props {
+  match: { params }
+}
 
-const RepoList = (props) => {
+const RepoList = (props: Props) => {
   // State hooks
   const [userRepos, setUserRepos] = useState();
   const [userRepoCount, setUserRepoCount] = useState();

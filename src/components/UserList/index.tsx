@@ -1,11 +1,12 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import axios from 'axios';
-// import UserCard from '../UserCard';
 import { UserListContainer, NextBtn, PrevBtn } from './style';
 import Spinner from '../Spinner';
 import Icon from 'antd/lib/icon'
 
+// Lazy loading
 const UserCard = lazy(() => import ('../UserCard'));
+
 
 const UserList: React.FC = () => {
   const [usersData, setUsersData] = useState();
@@ -18,8 +19,8 @@ const UserList: React.FC = () => {
       .catch(err => console.log(err.response))
   }, [apiIndex]);
 
+  // ApiIndex functions
   const increaseApiIndex = () => setApiIndex(apiIndex + 9);
-
   const decreaseApiIndex = () => apiIndex >= 9 && setApiIndex(apiIndex - 9);
 
   // Render users
