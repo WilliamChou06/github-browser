@@ -5,6 +5,7 @@
 - Replace antd icons for a more lightweight lib
 - Add animations to improve UX. (react-spring)
 - Fetch more data at once so loading the next batch of data is more responsive
+- Convert UserList component to class component in order to use setState synchronously for apiIndex functions more easily and deal with duplicated array values.
 
 ## Issues
 

@@ -39,7 +39,7 @@ const RepoList = (props: Props) => {
   }
 
   // Render Repos method
-  const renderRepos = () => userRepos.map(({ html_url, forks, name, open_issues, description, id }) => <Suspense fallback={<div>Loading...</div>}><RepoCard key={id} repoName={name} repoDescription={description} openIssues={open_issues} forks={forks} repoURL={html_url} /></Suspense>);
+  const renderRepos = () => userRepos.map(({ html_url, forks, name, open_issues, description, id }) => <Suspense key={id} fallback={<div>Loading...</div>}><RepoCard key={id} repoName={name} repoDescription={description} openIssues={open_issues} forks={forks} repoURL={html_url} /></Suspense>);
 
   // Set pageindex on pagination change so it triggers request for next page
   const handleChange = (page) => {

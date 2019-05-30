@@ -11,10 +11,13 @@ const UserCard = lazy(() => import('../UserCard'));
 const UserList: React.FC = () => {
   const [usersData, setUsersData] = useState();
   const [apiIndex, setApiIndex] = useState(0);
-  const [prevApiIndex, setPrevApiIndex] = useState();
+  const [prevApiIndex, setPrevApiIndex] = useState([]);
 
   // Re render component when apiIndex changes
   useEffect(() => {
+    // @ts-ignore
+    const uniqPrevApiIndex = [...new Set(prevApiIndex)];
+    setPrevApiIndex(uniqPrevApiIndex);
     axios.get(`https://api.github.com/users?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}&since=${apiIndex}&per_page=8`)
       .then(res => setUsersData(res.data))
       .catch(err => console.log(err.response))
@@ -24,17 +27,18 @@ const UserList: React.FC = () => {
   // GitHub API's user IDs are not completely straightforward so 
   // an extra state hook and the following logic has been used
   const increaseApiIndex = () => {
-    setPrevApiIndex(apiIndex);
     const lastUserId = usersData[usersData.length - 1].id;
-    return setApiIndex(lastUserId);
+    setApiIndex(lastUserId);
+    return setPrevApiIndex([...prevApiIndex, apiIndex]);
   };
 
   const decreaseApiIndex = () => {
-    setApiIndex(prevApiIndex);
+    setApiIndex(prevApiIndex[prevApiIndex.length - 1]);
+    setPrevApiIndex(prevApiIndex.slice(0, -1))
   };
 
   // Render users
-  const renderUsers = () => usersData.map(({ login, avatar_url, html_url, id }) => <Suspense fallback={<div>Loading...</div>}><UserCard key={id} username={login} avatarURL={avatar_url} githubURL={html_url} /></Suspense>);
+  const renderUsers = () => usersData.map(({ login, avatar_url, html_url, id }) => <Suspense key={id} fallback={<div>Loading...</div>}><UserCard key={id} username={login} avatarURL={avatar_url} githubURL={html_url} /></Suspense>);
 
 
   return (
@@ -43,7 +47,7 @@ const UserList: React.FC = () => {
       {usersData ? renderUsers() : <Spinner />}
       <NextBtn onClick={increaseApiIndex
       }><Icon type="right" /></NextBtn>
-      {console.log(usersData)}
+      {console.log(prevApiIndex)}
     </UserListContainer>
   );
 }
