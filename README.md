@@ -14,7 +14,8 @@
 
 - redux was not used due to the simplicity of the app.
 - Functional components and hooks were used instead of class components.
-- Certain aspects of the app couldn't be optimized due to the nature of GitHub's API.
+- Certain aspects of the app couldn't be optimized due to the nature of GitHub API.
+- GitHub API's user IDs are not in successive increments. E.g. ```1, 2, 3, 4, 5, 6```
 
 ## Links
 - **Live Demo:** https://github-browser-wc.herokuapp.com

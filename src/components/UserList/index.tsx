@@ -5,12 +5,13 @@ import Spinner from '../Spinner';
 import Icon from 'antd/lib/icon'
 
 // Lazy loading
-const UserCard = lazy(() => import ('../UserCard'));
+const UserCard = lazy(() => import('../UserCard'));
 
 
 const UserList: React.FC = () => {
   const [usersData, setUsersData] = useState();
   const [apiIndex, setApiIndex] = useState(0);
+  const [prevApiIndex, setPrevApiIndex] = useState();
 
   // Re render component when apiIndex changes
   useEffect(() => {
@@ -20,8 +21,17 @@ const UserList: React.FC = () => {
   }, [apiIndex]);
 
   // ApiIndex functions
-  const increaseApiIndex = () => setApiIndex(apiIndex + 9);
-  const decreaseApiIndex = () => apiIndex >= 9 && setApiIndex(apiIndex - 9);
+  // GitHub API's user IDs are not completely straightforward so 
+  // an extra state hook and the following logic has been used
+  const increaseApiIndex = () => {
+    setPrevApiIndex(apiIndex);
+    const lastUserId = usersData[usersData.length - 1].id;
+    return setApiIndex(lastUserId);
+  };
+
+  const decreaseApiIndex = () => {
+    setApiIndex(prevApiIndex);
+  };
 
   // Render users
   const renderUsers = () => usersData.map(({ login, avatar_url, html_url, id }) => <Suspense fallback={<div>Loading...</div>}><UserCard key={id} username={login} avatarURL={avatar_url} githubURL={html_url} /></Suspense>);
@@ -33,6 +43,7 @@ const UserList: React.FC = () => {
       {usersData ? renderUsers() : <Spinner />}
       <NextBtn onClick={increaseApiIndex
       }><Icon type="right" /></NextBtn>
+      {console.log(usersData)}
     </UserListContainer>
   );
 }
