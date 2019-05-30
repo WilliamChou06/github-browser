@@ -13,7 +13,7 @@ const RepoList = (props) => {
   // State hooks
   const [userRepos, setUserRepos] = useState();
   const [userRepoCount, setUserRepoCount] = useState();
-  const [pageIndex, setPageIndex] = useState(1);
+  const [pageIndex, setPageIndex] = useState(props.match.params.page || 1);
 
   // Data fetching hook
   // Refetch repos if pageIndex has changed
@@ -22,6 +22,7 @@ const RepoList = (props) => {
     getUserRepos();
   }, [pageIndex]);
 
+  // Get repo count through the user data model
   const getUserRepoCount = () => {
     axios.get(`https://api.github.com/users/${props.match.params.username}`)
       .then(res => setUserRepoCount(res.data.public_repos))
@@ -39,14 +40,15 @@ const RepoList = (props) => {
 
   // Set pageindex on pagination change so it triggers request for next page
   const handleChange = (page) => {
-    setPageIndex(page)
+    setPageIndex(page);
+    window.history.pushState(null, '', `/user/${props.match.params.username}/repositories/${page}`);
   }
 
   return (
     <>
       <RepoListContainer>
         {userRepos ? renderRepos() : <Spinner />}
-        <StyledPagination onChange={handleChange} total={userRepoCount} />
+        <StyledPagination current={pageIndex} onChange={handleChange} total={userRepoCount} />
       </RepoListContainer>
     </>
 

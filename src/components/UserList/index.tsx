@@ -11,6 +11,7 @@ const UserList: React.FC = () => {
   const [usersData, setUsersData] = useState();
   const [apiIndex, setApiIndex] = useState(0);
 
+  // Re render component when apiIndex changes
   useEffect(() => {
     axios.get(`https://api.github.com/users?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${process.env.REACT_APP_CLIENT_SECRET}&since=${apiIndex}&per_page=8`)
       .then(res => setUsersData(res.data))
@@ -21,6 +22,7 @@ const UserList: React.FC = () => {
 
   const decreaseApiIndex = () => apiIndex >= 9 && setApiIndex(apiIndex - 9);
 
+  // Render users
   const renderUsers = () => usersData.map(({ login, avatar_url, html_url, id }) => <Suspense fallback={<div>Loading...</div>}><UserCard key={id} username={login} avatarURL={avatar_url} githubURL={html_url} /></Suspense>);
 
 

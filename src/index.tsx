@@ -15,7 +15,7 @@ ReactDOM.render(
       <Header />
       <Switch>
         <Route exact path="/" component={UserList} />
-        <Route path="/user/:username/repositories" component={RepoList} />
+        <Route path="/user/:username/repositories/:page?" component={RepoList} />
       </Switch>
     </Suspense>
   </BrowserRouter>
