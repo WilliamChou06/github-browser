@@ -8,6 +8,7 @@ import Spinner from './components/Spinner';
 const UserList = lazy(() => import('./components/UserList'));
 const RepoList = lazy(() => import('./components/RepoList'));
 const Header = lazy(() => import('./components/Header'));
+const NotFoundPage = lazy(() => import('./components/NotFoundPage'));
 
 ReactDOM.render(
   <BrowserRouter>
@@ -16,6 +17,7 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/" component={UserList} />
         <Route path="/user/:username/repositories/:page?" component={RepoList} />
+        <Route component={NotFoundPage} />
       </Switch>
     </Suspense>
   </BrowserRouter>

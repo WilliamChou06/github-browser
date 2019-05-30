@@ -10,6 +10,12 @@ const RepoCard = lazy(() => import('../RepoCard'));
 
 interface Props {
   match: { params }
+  history: { push }
+}
+
+function useForceUpdate(){
+  const [value, set] = useState(true); //boolean state
+  return () => set(!value); // toggle the state to force render
 }
 
 const RepoList = (props: Props) => {
@@ -17,6 +23,8 @@ const RepoList = (props: Props) => {
   const [userRepos, setUserRepos] = useState();
   const [userRepoCount, setUserRepoCount] = useState();
   const [pageIndex, setPageIndex] = useState(props.match.params.page || 1);
+
+  const forceUpdate = useForceUpdate();
 
   // Data fetching hook
   // Refetch repos if pageIndex has changed
@@ -44,7 +52,7 @@ const RepoList = (props: Props) => {
   // Set pageindex on pagination change so it triggers request for next page
   const handleChange = (page) => {
     setPageIndex(page);
-    window.history.pushState(null, '', `/user/${props.match.params.username}/repositories/${page}`);
+    props.history.push(`/user/${props.match.params.username}/repositories/${page}`);
   }
 
   return (
