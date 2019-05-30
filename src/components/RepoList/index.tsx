@@ -13,18 +13,12 @@ interface Props {
   history: { push }
 }
 
-function useForceUpdate(){
-  const [value, set] = useState(true); //boolean state
-  return () => set(!value); // toggle the state to force render
-}
-
 const RepoList = (props: Props) => {
   // State hooks
   const [userRepos, setUserRepos] = useState();
   const [userRepoCount, setUserRepoCount] = useState();
   const [pageIndex, setPageIndex] = useState(props.match.params.page || 1);
 
-  const forceUpdate = useForceUpdate();
 
   // Data fetching hook
   // Refetch repos if pageIndex has changed
@@ -47,7 +41,7 @@ const RepoList = (props: Props) => {
   }
 
   // Render Repos method
-  const renderRepos = () => userRepos.map(({ html_url, forks, name, open_issues, description, id }) => <Suspense key={id} fallback={<div>Loading...</div>}><RepoCard key={id} repoName={name} repoDescription={description} openIssues={open_issues} forks={forks} repoURL={html_url} /></Suspense>);
+  const renderRepos = () => userRepos.map(({ html_url, forks, name, open_issues, description, id }) => <RepoCard key={id} repoName={name} repoDescription={description} openIssues={open_issues} forks={forks} repoURL={html_url} />);
 
   // Set pageindex on pagination change so it triggers request for next page
   const handleChange = (page) => {
@@ -58,7 +52,7 @@ const RepoList = (props: Props) => {
   return (
     <>
       <RepoListContainer>
-        {userRepos ? renderRepos() : <Spinner />}
+        {userRepos ? <Suspense fallback={<div>Loading repos...</div>}>{renderRepos()} </Suspense> : <Spinner />}
         <StyledPagination current={pageIndex} onChange={handleChange} total={userRepoCount} />
       </RepoListContainer>
     </>

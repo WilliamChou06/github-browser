@@ -1,4 +1,4 @@
-import React, {lazy, Suspense} from 'react';
+import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';

@@ -12,8 +12,12 @@ const Header = ({ location: { pathname }, history }) => {
       });
       return `Viewing ${match.params.username}'s Repositories`
     }
-    return 'User List'
+    if (pathname === '/') {
+      return 'User List'
 
+    }
+
+    return 'Page Not Found!'
   }
 
   // Pathname regex matcher

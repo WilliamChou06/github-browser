@@ -42,13 +42,13 @@ const UserList: React.FC = () => {
   };
 
   // Render users
-  const renderUsers = () => usersData.map(({ login, avatar_url, html_url, id }) => <Suspense key={id} fallback={<div>Loading...</div>}><UserCard key={id} username={login} avatarURL={avatar_url} githubURL={html_url} /></Suspense>);
+  const renderUsers = () => usersData.map(({ login, avatar_url, html_url, id }) => <UserCard key={id} username={login} avatarURL={avatar_url} githubURL={html_url} />);
 
 
   return (
     <UserListContainer>
       <PrevBtn onClick={decreaseApiIndex}><Icon type="left" /></PrevBtn>
-      {usersData ? renderUsers() : <Spinner />}
+      {usersData ? <Suspense fallback={<div>Loading users...</div>}>{renderUsers()}</Suspense> : <Spinner />}
       <NextBtn onClick={increaseApiIndex
       }><Icon type="right" /></NextBtn>
     </UserListContainer>
