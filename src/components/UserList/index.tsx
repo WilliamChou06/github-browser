@@ -15,6 +15,7 @@ const UserList: React.FC = () => {
 
   // Re render component when apiIndex changes
   useEffect(() => {
+    // Remove any duplicates found in prevApiIndex due to repetitive function calls
     // @ts-ignore
     const uniqPrevApiIndex = [...new Set(prevApiIndex)];
     setPrevApiIndex(uniqPrevApiIndex);
@@ -26,12 +27,15 @@ const UserList: React.FC = () => {
   // ApiIndex functions
   // GitHub API's user IDs are not completely straightforward so 
   // an extra state hook and the following logic has been used
+
+  // Fetch next batch and add previous apiIndex to prevApiIndex array
   const increaseApiIndex = () => {
     const lastUserId = usersData[usersData.length - 1].id;
     setApiIndex(lastUserId);
     return setPrevApiIndex([...prevApiIndex, apiIndex]);
   };
 
+  // Fetch previous batch from prevApiIndex and delete last item in array
   const decreaseApiIndex = () => {
     setApiIndex(prevApiIndex[prevApiIndex.length - 1]);
     setPrevApiIndex(prevApiIndex.slice(0, -1))
@@ -47,7 +51,6 @@ const UserList: React.FC = () => {
       {usersData ? renderUsers() : <Spinner />}
       <NextBtn onClick={increaseApiIndex
       }><Icon type="right" /></NextBtn>
-      {console.log(prevApiIndex)}
     </UserListContainer>
   );
 }
