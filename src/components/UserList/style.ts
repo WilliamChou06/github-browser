@@ -8,7 +8,7 @@ export const UserListContainer = styled.div`
     padding: 42px;
 `;
 
-export const NextButton = styled.a`
+export const NextBtn = styled.a`
     color: #000;
     font-size: 30px;
     position: absolute;
@@ -21,7 +21,7 @@ export const NextButton = styled.a`
     }
 `;
 
-export const PreviousButton = styled.a`
+export const PrevBtn = styled.a`
     color: #000;
     font-size: 30px;
     position: absolute;

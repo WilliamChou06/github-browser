@@ -3,7 +3,7 @@ import { withRouter, matchPath } from 'react-router-dom';
 import Icon from 'antd/lib/icon';
 import { StyledHeader, HeaderReturn, } from './style';
 
-const Header = ({location: {pathname}, match, history}) => {
+const Header = ({location: {pathname}, history}) => {
   const renderHeaderText = () => {
     if(pathname.endsWith('repositories')) {
       const match = matchPath(pathname, {
