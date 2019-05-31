@@ -1,5 +1,5 @@
 import React from 'react';
-import {NotFoundPageWrapper} from './style'
+import { NotFoundPageWrapper } from './style';
 
 const NotFoundPage = () => {
   return (

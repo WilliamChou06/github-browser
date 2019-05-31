@@ -16,12 +16,16 @@ ReactDOM.render(
       <Header />
       <Switch>
         <Route exact path="/" component={UserList} />
-        <Route path="/user/:username/repositories/:page?" component={RepoList} />
+        <Route
+          path="/user/:username/repositories/:page?"
+          component={RepoList}
+        />
         <Route component={NotFoundPage} />
       </Switch>
     </Suspense>
-  </BrowserRouter>
-  , document.getElementById('root'));
+  </BrowserRouter>,
+  document.getElementById('root')
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -16,7 +16,7 @@ export const StyledSpinnerContainer = styled.div`
   position: relative;
   width: 100%;
   min-height: 25vh;
-  flex: 1
+  flex: 1;
 `;
 
 export const StyledSpinner = styled.div`

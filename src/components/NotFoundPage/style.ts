@@ -5,4 +5,4 @@ export const NotFoundPageWrapper = styled.div`
   height: 100%;
   overflow: hidden;
   color: #000;
-`
+`;

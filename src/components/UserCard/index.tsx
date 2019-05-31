@@ -6,24 +6,31 @@ import { UsernameTitle, StyledCard } from './style';
 import Icon from 'antd/lib/icon';
 
 interface Props {
-  avatarURL: string,
-  username: string,
-  githubURL: string,
+  avatarURL: string;
+  username: string;
+  githubURL: string;
 }
 
-const UserCard = ({avatarURL, githubURL, username}: Props) => {
+const UserCard = ({ avatarURL, githubURL, username }: Props) => {
   return (
     <StyledCard
-    cover={
-      <img
-        alt="github-avatar"
-        src={avatarURL}
-      />
-    }
-    actions={[<a href={githubURL} title="Github Profile" target="_blank" rel="noopener noreferrer" ><Icon type="github" /></a>, <Link to={`/user/${username}/repositories`}><Icon type="folder-open" /></Link>]}
-  >
-    <UsernameTitle>Username: {username}</UsernameTitle>
-  </StyledCard>
+      cover={<img alt="github-avatar" src={avatarURL} />}
+      actions={[
+        <a
+          href={githubURL}
+          title="Github Profile"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icon type="github" />
+        </a>,
+        <Link to={`/user/${username}/repositories`}>
+          <Icon type="folder-open" />
+        </Link>,
+      ]}
+    >
+      <UsernameTitle>Username: {username}</UsernameTitle>
+    </StyledCard>
   );
 };
 

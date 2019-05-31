@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import Pagination from 'antd/lib/pagination';
 import 'antd/lib/pagination/style/css';
 
-
 export const RepoListContainer = styled.div`
   position: relative;
   background: #f9f9fbff;
@@ -16,4 +15,4 @@ export const RepoListContainer = styled.div`
 export const StyledPagination = styled(Pagination)`
   position: absolute;
   bottom: 0;
-`
+`;

@@ -10,7 +10,6 @@ export const StyledCard = styled(Card)`
   flex-direction: column;
   justify-content: space-between;
   margin-bottom: 18px !important;
-
 `;
 
 export const RepoIcons = styled.div`
