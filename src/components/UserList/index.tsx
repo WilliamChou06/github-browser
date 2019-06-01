@@ -49,6 +49,7 @@ const reducer: React.Reducer<IState, IAction> = (state, action) => {
 };
 
 const UserList = () => {
+  // Reducer hook
   const [{ usersData, apiIndex, prevApiIndex }, dispatch] = useReducer<
     React.Reducer<IState, IAction>
   >(reducer, initialState);

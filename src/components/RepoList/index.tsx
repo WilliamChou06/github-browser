@@ -44,7 +44,7 @@ const reducer: React.Reducer<IState, IAction> = (state, action) => {
 };
 
 const RepoList: React.FC<Props> = props => {
-  // State hooks
+  // Reducer hook
   const [{ userRepos, userRepoCount, pageIndex }, dispatch] = useReducer<
     React.Reducer<IState, IAction>
   >(reducer, {
