@@ -12,13 +12,13 @@ interface Props {
   forks: number;
 }
 
-const RepoCard = ({
+const RepoCard: React.FC<Props> = ({
   repoName,
   repoDescription,
   repoURL,
   openIssues,
   forks,
-}: Props) => {
+}) => {
   return (
     <StyledCard
       actions={[

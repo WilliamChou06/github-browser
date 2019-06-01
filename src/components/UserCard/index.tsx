@@ -11,7 +11,7 @@ interface Props {
   githubURL: string;
 }
 
-const UserCard = ({ avatarURL, githubURL, username }: Props) => {
+const UserCard: React.FC<Props> = ({ avatarURL, githubURL, username }) => {
   return (
     <StyledCard
       cover={<img alt="github-avatar" src={avatarURL} />}

@@ -3,7 +3,16 @@ import { withRouter, matchPath } from 'react-router-dom';
 import Icon from 'antd/lib/icon';
 import { StyledHeader, HeaderReturn } from './style';
 
-const Header = ({ location: { pathname }, history }) => {
+interface Props {
+  location: {
+    pathname: string;
+  };
+  history: {
+    push(string): any;
+  };
+}
+
+const Header: React.FC<Props> = ({ location: { pathname }, history }) => {
   const renderHeaderText = () => {
     // Render text according to pathname
     if (matchRepoURL()) {

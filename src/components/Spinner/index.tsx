@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyledSpinnerContainer, StyledSpinner } from './style';
 
-const Spinner = () => (
+const Spinner: React.FC = () => (
   <StyledSpinnerContainer>
     <StyledSpinner />
   </StyledSpinnerContainer>
