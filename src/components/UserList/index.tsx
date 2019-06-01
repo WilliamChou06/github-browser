@@ -57,9 +57,11 @@ const UserList = () => {
   // Re render component when apiIndex changes
   useEffect(() => {
     // Remove any duplicates found in prevApiIndex due to repetitive function calls
-    // @ts-ignore
-    const uniqPrevApiIndex = [...new Set(prevApiIndex)];
-    dispatch({ type: ActionTypes.PREV_API_INDEX, prevArr: uniqPrevApiIndex });
+    dispatch({
+      type: ActionTypes.PREV_API_INDEX,
+      // @ts-ignore
+      prevArr: [...new Set(prevApiIndex)],
+    });
     axios
       .get(
         `https://api.github.com/users?client_id=${
@@ -82,7 +84,7 @@ const UserList = () => {
   const increaseApiIndex = () => {
     const lastUserId = usersData[usersData.length - 1].id;
     dispatch({ type: ActionTypes.API_INDEX, index: lastUserId });
-    return dispatch({
+    dispatch({
       type: ActionTypes.PREV_API_INDEX,
       prevArr: [...prevApiIndex, apiIndex],
     });
