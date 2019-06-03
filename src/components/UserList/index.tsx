@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, lazy, Suspense } from 'react';
+import React, { useReducer, useEffect, lazy, Suspense, memo } from 'react';
 import axios from 'axios';
 import { UserListContainer, NextBtn, PrevBtn } from './style';
 import Spinner from '../Spinner';
@@ -61,6 +61,9 @@ const reducer: React.Reducer<IState, IAction> = (state, action) => {
 };
 
 const UserList = () => {
+  {
+    console.log('asd');
+  }
   // Reducer hook
   const [
     { usersData, apiIndex, prevApiIndex, isLoading },

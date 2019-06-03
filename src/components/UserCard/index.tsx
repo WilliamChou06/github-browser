@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { UsernameTitle, StyledCard } from './style';
 
@@ -34,4 +34,4 @@ const UserCard: React.FC<Props> = ({ avatarURL, githubURL, username }) => {
   );
 };
 
-export default UserCard;
+export default memo(UserCard);

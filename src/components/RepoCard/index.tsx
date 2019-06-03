@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { StyledCard, RepoIcons } from './style';
 
 // antd imports
@@ -45,4 +45,4 @@ const RepoCard: React.FC<Props> = ({
   );
 };
 
-export default RepoCard;
+export default memo(RepoCard);
