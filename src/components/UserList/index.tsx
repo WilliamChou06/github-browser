@@ -19,6 +19,7 @@ interface IState {
   usersData: any;
   apiIndex: number;
   prevApiIndex: number[];
+  isLoading: boolean;
 }
 
 interface IAction {
@@ -33,16 +34,17 @@ const initialState: IState = {
   usersData: null,
   apiIndex: 0,
   prevApiIndex: [],
+  isLoading: false,
 };
 
 const reducer: React.Reducer<IState, IAction> = (state, action) => {
   switch (action.type) {
     case 'SET_USERS_DATA':
-      return { ...state, usersData: action.users };
+      return { ...state, usersData: action.users, isLoading: false };
     case 'PREV_API_INDEX':
       return { ...state, prevApiIndex: action.prevArr };
     case 'API_INDEX':
-      return { ...state, apiIndex: action.index };
+      return { ...state, apiIndex: action.index, isLoading: true };
     default:
       return state;
   }
@@ -50,18 +52,13 @@ const reducer: React.Reducer<IState, IAction> = (state, action) => {
 
 const UserList = () => {
   // Reducer hook
-  const [{ usersData, apiIndex, prevApiIndex }, dispatch] = useReducer<
-    React.Reducer<IState, IAction>
-  >(reducer, initialState);
+  const [
+    { usersData, apiIndex, prevApiIndex, isLoading },
+    dispatch,
+  ] = useReducer<React.Reducer<IState, IAction>>(reducer, initialState);
 
   // Re render component when apiIndex changes
   useEffect(() => {
-    // Remove any duplicates found in prevApiIndex due to repetitive function calls
-    dispatch({
-      type: ActionTypes.PREV_API_INDEX,
-      // @ts-ignore
-      prevArr: [...new Set(prevApiIndex)],
-    });
     axios
       .get(
         `https://api.github.com/users?client_id=${
@@ -115,7 +112,7 @@ const UserList = () => {
 
   return (
     <UserListContainer>
-      <PrevBtn onClick={decreaseApiIndex}>
+      <PrevBtn disabled={isLoading} onClick={decreaseApiIndex}>
         <Icon type="left" />
       </PrevBtn>
       {usersData ? (
@@ -125,7 +122,7 @@ const UserList = () => {
       ) : (
         <Spinner />
       )}
-      <NextBtn onClick={increaseApiIndex}>
+      <NextBtn disabled={isLoading} onClick={increaseApiIndex}>
         <Icon type="right" />
       </NextBtn>
     </UserListContainer>
