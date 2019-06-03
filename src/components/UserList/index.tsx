@@ -10,8 +10,8 @@ const UserCard = lazy(() => import('../UserCard'));
 // Actiontypes
 enum ActionTypes {
   SET_USERS_DATA = 'SET_USERS_DATA',
-  PREV_API_INDEX = 'PREV_API_INDEX',
-  API_INDEX = 'API_INDEX',
+  NEXT_PAGE = 'NEXT_PAGE',
+  PREV_PAGE = 'PREV_PAGE',
 }
 
 // TypeScript interfaces
@@ -39,12 +39,22 @@ const initialState: IState = {
 
 const reducer: React.Reducer<IState, IAction> = (state, action) => {
   switch (action.type) {
-    case 'SET_USERS_DATA':
+    case ActionTypes.SET_USERS_DATA:
       return { ...state, usersData: action.users, isLoading: false };
-    case 'PREV_API_INDEX':
-      return { ...state, prevApiIndex: action.prevArr };
-    case 'API_INDEX':
-      return { ...state, apiIndex: action.index, isLoading: true };
+    case ActionTypes.NEXT_PAGE:
+      return {
+        ...state,
+        apiIndex: action.index,
+        prevApiIndex: action.prevArr,
+        isLoading: true,
+      };
+    case ActionTypes.PREV_PAGE:
+      return {
+        ...state,
+        apiIndex: action.index,
+        prevApiIndex: action.prevArr,
+        isLoading: true,
+      };
     default:
       return state;
   }
@@ -73,32 +83,6 @@ const UserList = () => {
       .catch(err => console.log(err.response));
   }, [apiIndex]);
 
-  // ApiIndex functions
-  // GitHub API's user IDs are not completely straightforward so
-  // an extra state hook and the following logic has been used
-
-  // Fetch next batch and add previous apiIndex to prevApiIndex array
-  const increaseApiIndex = () => {
-    const lastUserId = usersData[usersData.length - 1].id;
-    dispatch({ type: ActionTypes.API_INDEX, index: lastUserId });
-    dispatch({
-      type: ActionTypes.PREV_API_INDEX,
-      prevArr: [...prevApiIndex, apiIndex],
-    });
-  };
-
-  // Fetch previous batch from prevApiIndex and delete last item in array
-  const decreaseApiIndex = () => {
-    dispatch({
-      type: ActionTypes.API_INDEX,
-      index: prevApiIndex[prevApiIndex.length - 1],
-    });
-    dispatch({
-      type: ActionTypes.PREV_API_INDEX,
-      prevArr: prevApiIndex.slice(0, -1),
-    });
-  };
-
   // Render users
   const renderUsers = () =>
     usersData.map(({ login, avatar_url, html_url, id }) => (
@@ -112,7 +96,16 @@ const UserList = () => {
 
   return (
     <UserListContainer>
-      <PrevBtn disabled={isLoading} onClick={decreaseApiIndex}>
+      <PrevBtn
+        disabled={isLoading && apiIndex !== undefined}
+        onClick={() =>
+          dispatch({
+            type: ActionTypes.PREV_PAGE,
+            index: prevApiIndex[prevApiIndex.length - 1],
+            prevArr: prevApiIndex.slice(0, -1),
+          })
+        }
+      >
         <Icon type="left" />
       </PrevBtn>
       {usersData ? (
@@ -122,7 +115,16 @@ const UserList = () => {
       ) : (
         <Spinner />
       )}
-      <NextBtn disabled={isLoading} onClick={increaseApiIndex}>
+      <NextBtn
+        disabled={isLoading && apiIndex !== undefined}
+        onClick={() =>
+          dispatch({
+            type: ActionTypes.NEXT_PAGE,
+            index: usersData[usersData.length - 1].id,
+            prevArr: [...prevApiIndex, apiIndex],
+          })
+        }
+      >
         <Icon type="right" />
       </NextBtn>
     </UserListContainer>
