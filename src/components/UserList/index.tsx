@@ -61,9 +61,6 @@ const reducer: React.Reducer<IState, IAction> = (state, action) => {
 };
 
 const UserList = () => {
-  {
-    console.log('asd');
-  }
   // Reducer hook
   const [
     { usersData, apiIndex, prevApiIndex, isLoading },
