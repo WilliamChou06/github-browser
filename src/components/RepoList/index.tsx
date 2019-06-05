@@ -50,7 +50,7 @@ const RepoList: React.FC<Props> = props => {
   >(reducer, {
     userRepos: null,
     userRepoCount: 0,
-    pageIndex: props.match.params.page || 1,
+    pageIndex: Number(props.match.params.page) || 1,
   });
 
   // Data fetching hook
