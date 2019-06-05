@@ -1,6 +1,6 @@
 import React, { useReducer, useEffect, lazy, Suspense } from 'react';
 import axios from 'axios';
-
+import { Link, withRouter } from 'react-router-dom';
 import { RepoListContainer, StyledPagination } from './style';
 import Spinner from '../Spinner';
 
@@ -36,8 +36,6 @@ const reducer: React.Reducer<IState, IAction> = (state, action) => {
       return { ...state, userRepos: action.repoData };
     case 'USER_REPO_COUNT':
       return { ...state, userRepoCount: action.repoCount };
-    case 'PAGE_INDEX':
-      return { ...state, pageIndex: action.index };
     default:
       return state;
   }
@@ -45,12 +43,12 @@ const reducer: React.Reducer<IState, IAction> = (state, action) => {
 
 const RepoList: React.FC<Props> = props => {
   // Reducer hook
-  const [{ userRepos, userRepoCount, pageIndex }, dispatch] = useReducer<
+  const [{ userRepos, userRepoCount }, dispatch] = useReducer<
     React.Reducer<IState, IAction>
   >(reducer, {
     userRepos: null,
     userRepoCount: 0,
-    pageIndex: Number(props.match.params.page) || 1,
+    pageIndex: Number(props.match.params.page),
   });
 
   // Data fetching hook
@@ -58,7 +56,7 @@ const RepoList: React.FC<Props> = props => {
   useEffect(() => {
     getUserRepoCount();
     getUserRepos();
-  }, [pageIndex]);
+  }, [props.match.params.page]);
 
   // Get repo count through the user data model
   const getUserRepoCount = () => {
@@ -80,7 +78,7 @@ const RepoList: React.FC<Props> = props => {
           props.match.params.username
         }/repos?client_id=${process.env.REACT_APP_CLIENT_ID}&client_secret=${
           process.env.REACT_APP_CLIENT_SECRET
-        }&page=${pageIndex}&per_page=8`
+        }&page=${props.match.params.page}&per_page=8`
       )
       .then(res =>
         dispatch({ type: ActionTypes.USER_REPOS, repoData: res.data })
@@ -103,7 +101,6 @@ const RepoList: React.FC<Props> = props => {
 
   // Set pageindex on pagination change so it triggers request for next page
   const handleChange = page => {
-    dispatch({ type: ActionTypes.PAGE_INDEX, index: page });
     props.history.push(
       `/user/${props.match.params.username}/repositories/${page}`
     );
@@ -114,13 +111,13 @@ const RepoList: React.FC<Props> = props => {
       <RepoListContainer>
         {userRepos ? (
           <Suspense fallback={<div>Loading repos...</div>}>
-            {renderRepos()}{' '}
+            {renderRepos()}
           </Suspense>
         ) : (
           <Spinner />
         )}
         <StyledPagination
-          current={pageIndex}
+          current={Number(props.match.params.page)}
           onChange={handleChange}
           total={userRepoCount}
         />
@@ -129,4 +126,4 @@ const RepoList: React.FC<Props> = props => {
   );
 };
 
-export default RepoList;
+export default withRouter(RepoList);

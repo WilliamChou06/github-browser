@@ -24,7 +24,7 @@ const UserCard: React.FC<Props> = ({ avatarURL, githubURL, username }) => {
         >
           <Icon type="github" />
         </a>,
-        <Link to={`/user/${username}/repositories`}>
+        <Link to={`/user/${username}/repositories/1`}>
           <Icon type="folder-open" />
         </Link>,
       ]}
