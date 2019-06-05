@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, lazy, Suspense, memo } from 'react';
+import React, { useReducer, useEffect, lazy, Suspense } from 'react';
 import axios from 'axios';
 import { UserListContainer, NextBtn, PrevBtn } from './style';
 import Spinner from '../Spinner';
@@ -60,7 +60,7 @@ const reducer: React.Reducer<IState, IAction> = (state, action) => {
   }
 };
 
-const UserList = () => {
+const UserList: React.FC = () => {
   // Reducer hook
   const [
     { usersData, apiIndex, prevApiIndex, isLoading },
@@ -84,7 +84,7 @@ const UserList = () => {
   }, [apiIndex]);
 
   // Render users
-  const renderUsers = () =>
+  const renderUsers = (): object[] =>
     usersData.map(({ login, avatar_url, html_url, id }) => (
       <UserCard
         key={id}
