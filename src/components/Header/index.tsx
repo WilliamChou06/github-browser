@@ -13,7 +13,7 @@ interface Props {
 }
 
 const Header: React.FC<Props> = ({ location: { pathname }, history }) => {
-  const renderHeaderText = () => {
+  const renderHeaderText = (): React.ReactNode => {
     // Render text according to pathname
     if (matchRepoURL()) {
       const match = matchPath(pathname, {
@@ -29,7 +29,7 @@ const Header: React.FC<Props> = ({ location: { pathname }, history }) => {
   };
 
   // Pathname regex matcher
-  const matchRepoURL = () => {
+  const matchRepoURL = (): boolean => {
     if (
       pathname.match(/\w*repositories\b/) ||
       pathname.match(/\w*repositories\/[0-9]\b/)
