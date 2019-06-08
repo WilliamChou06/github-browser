@@ -29,6 +29,18 @@ interface Props {
   history: { push };
 }
 
+const initialState = {
+  userRepos: null,
+  userRepoCount: 0,
+  pageIndex: 1,
+};
+
+// Put initializing logic ouside of component for better
+// readability
+const initializeState = params => ({
+  pageIndex: Number(params.page),
+});
+
 const reducer: React.Reducer<IState, IAction> = (state, action) => {
   switch (action.type) {
     case 'USER_REPOS':
@@ -44,11 +56,8 @@ const RepoList: React.FC<Props> = ({ match: { params }, history }) => {
   // Reducer hook
   const [{ userRepos, userRepoCount }, dispatch] = useReducer<
     React.Reducer<IState, IAction>
-  >(reducer, {
-    userRepos: null,
-    userRepoCount: 0,
-    pageIndex: Number(params.page),
-  });
+    // @ts-ignore
+  >(reducer, initialState, () => initializeState(params));
 
   // Data fetching hook
   // Refetch repos if pageIndex has changed
