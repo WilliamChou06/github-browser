@@ -69,19 +69,23 @@ const UserList: React.FC = () => {
 
   // Re render component when apiIndex changes
   useEffect(() => {
-    axios
-      .get(
+    getUsers();
+  }, [apiIndex]);
+
+  const getUsers = async () => {
+    try {
+      const res = await axios.get(
         `https://api.github.com/users?client_id=${
           process.env.REACT_APP_CLIENT_ID
         }&client_secret=${
           process.env.REACT_APP_CLIENT_SECRET
         }&since=${apiIndex}&per_page=8`
-      )
-      .then(res =>
-        dispatch({ type: ActionTypes.SET_USERS_DATA, users: res.data })
-      )
-      .catch(err => console.log(err.response));
-  }, [apiIndex]);
+      );
+      dispatch({ type: ActionTypes.SET_USERS_DATA, users: res.data });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   // Render users
   const renderUsers = (): object[] =>

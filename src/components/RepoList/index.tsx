@@ -67,31 +67,33 @@ const RepoList: React.FC<Props> = ({ match: { params }, history }) => {
   }, [params.page]);
 
   // Get repo count through the user data model
-  const getUserRepoCount = (): void => {
-    axios
-      .get(`https://api.github.com/users/${params.username}`)
-      .then(res =>
-        dispatch({
-          type: ActionTypes.USER_REPO_COUNT,
-          repoCount: res.data.public_repos,
-        })
-      )
-      .catch(err => console.log(err.response));
+  const getUserRepoCount = async () => {
+    try {
+      const res = await axios.get(
+        `https://api.github.com/users/${params.username}`
+      );
+      dispatch({
+        type: ActionTypes.USER_REPO_COUNT,
+        repoCount: res.data.public_repos,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const getUserRepos = (): void => {
-    axios
-      .get(
+  const getUserRepos = async () => {
+    try {
+      const res = await axios.get(
         `https://api.github.com/users/${params.username}/repos?client_id=${
           process.env.REACT_APP_CLIENT_ID
         }&client_secret=${process.env.REACT_APP_CLIENT_SECRET}&page=${
           params.page
         }&per_page=8`
-      )
-      .then(res =>
-        dispatch({ type: ActionTypes.USER_REPOS, repoData: res.data })
-      )
-      .catch(err => console.log(err.response));
+      );
+      dispatch({ type: ActionTypes.USER_REPOS, repoData: res.data });
+    } catch (err) {
+      console.log(err.response);
+    }
   };
 
   // Render Repos method
@@ -115,7 +117,7 @@ const RepoList: React.FC<Props> = ({ match: { params }, history }) => {
   return (
     <>
       <RepoListContainer>
-        {userRepos ? (
+        {userRepos && userRepos.length > 0 ? (
           <Suspense fallback={<div>Loading repos...</div>}>
             {renderRepos()}
           </Suspense>
